@@ -12,6 +12,8 @@ SMODS.Atlas{
     py = 95
 }
 
+assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/rarity.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
-assert(SMODS.load_file("src/enhancements.lua"))()
+assert(SMODS.load_file("src/tarot.lua"))()
+

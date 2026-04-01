@@ -9,5 +9,9 @@ SMODS.Rarity {
         return weight
     end,
     disable_if_empty = true,
+    pools = {
+        ["Joker"] = true
+    },
+    
 
 }

@@ -60,5 +60,13 @@ SMODS.Joker{
                 chips = card.ability.extra.chips
             }
         end
-    end
+    end,
+    in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_glass'`
+        for _, playing_card in ipairs(G.playing_cards or {}) do
+            if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                return true
+            end
+        end
+        return false
+    end,
 }

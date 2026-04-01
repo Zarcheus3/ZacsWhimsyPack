@@ -25,6 +25,12 @@ return {
                 }}
 
             }
+        },
+        Tarot = {
+            c_zwp_lollipop = {
+                name = "The Lollipop",
+                text = {"hi"}
+            }
         }
     }
 

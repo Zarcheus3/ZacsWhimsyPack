@@ -1,0 +1,25 @@
+SMODS.Enhancement{
+    key = "whimsical",
+    atlas = "enhancements",
+    pos = {
+        x = 0,
+        y = 0
+    },
+    config = {
+        mult = 0,
+        extra = {odds = 10}
+    },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_glass')
+        return { vars = { card.ability.mult, numerator, denominator } }
+    end,
+    calculate = function(self, card, context)
+            if context.cardarea == G.play and context.main_scoring and 
+            SMODS.pseudorandom_probability(card, 'zwp_whimsical', 1, card.ability.extra.odds) then
+                    card:set_ability('c_base', nil, true)
+                    return {
+                        message = "Evolved"
+                    }
+            end
+    end
+}

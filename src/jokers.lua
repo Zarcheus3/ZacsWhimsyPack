@@ -75,7 +75,7 @@ SMODS.Joker{
             }
         end
     end,
-    in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_glass'`
+    in_pool = function(self, args)
         for _, playing_card in ipairs(G.playing_cards or {}) do
             if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
                 return true
@@ -83,4 +83,55 @@ SMODS.Joker{
         end
         return false
     end,
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Legendary Jokers
+SMODS.Joker{
+    key = "propeller",
+    atlas = "placeholders",
+    pos = {
+        x = 4,
+        y = 0},
+    config = {
+        extra = {
+            xmult = 1.5,
+            repetitions = 1
+        }
+    },
+    rarity = 4,
+    cost = 10,
+    
+    
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and
+            SMODS.has_enhancement(context.other_card, 'm_zwp_whimsical') then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+
+        end
+        if context.repetition and context.cardarea == G.play and
+            SMODS.has_enhancement(context.other_card, 'm_zwp_whimsical') then
+                return{
+                    repetitions = card.ability.extra.repetitions
+                }
+            end
+        
+    end,
+    
 }

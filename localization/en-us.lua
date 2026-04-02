@@ -8,7 +8,14 @@ return {
                     "{C:chips}#1#{} chips"
                     --calls to the first entry in vars table in the jokers
                 }
+            },
+            j_zwp_propeller = {
+                name = "Propeller Hat",
+                text = {
+                    "diddy",
+                }
             }
+
         },
         Enhanced = {
             --m is univeral enhancement indicator

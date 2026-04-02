@@ -12,9 +12,9 @@ SMODS.Rarity {
     pools = {
         ["Joker"] = true
     },
-    
+}    
+--[[
 
-}
 SMODS.Rarity {
     key = "l_whimsical",
     default_weight = 0,
@@ -30,3 +30,4 @@ SMODS.Rarity {
         ["Joker"] = true
     },
 }
+]]

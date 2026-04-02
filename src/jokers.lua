@@ -31,6 +31,18 @@ SMODS.Joker{
         end
     end
 }
+
+-Adjusts the badge with colors and new name and such
+
+set_badges = function(self, card, badges)
+ 	badges[#badges] = create_badge('Whimsical', G.C.RED, G.C.BLACK, 1.2 )
+end,
+
+
+
+
+
+
 ]]
 
 SMODS.Joker{
@@ -42,11 +54,13 @@ SMODS.Joker{
     config = {
         extra = {
             chips = -100
-        }
+        },
         --denotes card abilities
     },
+    
     rarity = "zwp_whimsical",
     cost = 5,
+    
     loc_vars = function(self,info_queue, card)
         return {
             vars = {

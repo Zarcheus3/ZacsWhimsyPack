@@ -20,7 +20,7 @@ return {
         Enhanced = {
             --m is univeral enhancement indicator
             m_zwp_whimsical = {
-                name = "Whimsical",
+                name = "Whimsical Card",
                 text = {{
                     "{C:green}#2# in #3#{} chance to",
                     "evolve up when played,",
@@ -36,7 +36,11 @@ return {
         Tarot = {
             c_zwp_lollipop = {
                 name = "The Lollipop",
-                text = {"hi"}
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}Whimsical Cards{}"
+                }
             }
         }
     }

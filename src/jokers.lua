@@ -103,10 +103,10 @@ SMODS.Joker{
 -- Legendary Jokers
 SMODS.Joker{
     key = "propeller",
-    atlas = "placeholders",
-    pos = {
-        x = 4,
-        y = 0},
+    
+    atlas = "woker",
+    pos = { x = 0, y = 0 },
+    soul_pos = { x = 1, y = 0 },
     config = {
         extra = {
             xmult = 1.5,
@@ -115,7 +115,9 @@ SMODS.Joker{
     },
     rarity = 4,
     cost = 10,
-    
+    set_badges = function(self, card, badges)
+ 	badges[#badges] = create_badge('Whimsical Legend', HEX('B500B5'), G.C.WHITE, 1.2 )
+    end,
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and

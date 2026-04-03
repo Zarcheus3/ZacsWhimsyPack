@@ -3,7 +3,7 @@ return {
         Joker = {
             --j is universal joker indicator, then id of mod, then joker id
             j_zwp_pencil = {
-                name = "Triangular Pencil",
+                name = "Big Pencil",
                 text = {
                     "{C:chips}#1#{} chips"
                     --calls to the first entry in vars table in the jokers

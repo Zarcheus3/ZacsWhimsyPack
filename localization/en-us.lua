@@ -12,7 +12,11 @@ return {
             j_zwp_propeller = {
                 name = "Hat of Whimsy",
                 text = {
-                    "diddy",
+                    "Retrigger all",
+                    "played {C:attention}Whimsical Cards{}",
+                    "",
+                    "Played {C:attention}Whimsical Cards{} give",
+                    "{X:mult,C:white}X#1# {} Mult when scored" 
                 }
             }
 

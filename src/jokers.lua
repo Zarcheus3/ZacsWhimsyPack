@@ -113,12 +113,18 @@ SMODS.Joker{
             repetitions = 1
         }
     },
+    loc_vars = function(self,info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.xmult
+            }
+        }
+    end,
     rarity = 4,
     cost = 10,
     set_badges = function(self, card, badges)
- 	badges[#badges] = create_badge('Whimsical Legend', HEX('B500B5'), G.C.WHITE, 1.2 )
+ 	badges[#badges + 1] = create_badge('Whimsical Legend', HEX('B500B5'), G.C.WHITE, 1.2 )
     end,
-    
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and
             SMODS.has_enhancement(context.other_card, 'm_zwp_whimsical') then

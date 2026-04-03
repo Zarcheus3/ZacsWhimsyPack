@@ -10,7 +10,7 @@ return {
                 }
             },
             j_zwp_propeller = {
-                name = "Propeller Hat",
+                name = "Hat of Whimsy",
                 text = {
                     "diddy",
                 }

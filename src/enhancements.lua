@@ -6,12 +6,12 @@ SMODS.Enhancement{
         y = 0
     },
     config = {
-        mult = 0,
-        extra = {odds = 10},
+        
+        extra = {mult = 0,odds = 10},
     },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_glass')
-        return { vars = { card.ability.mult, numerator, denominator,  } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_whimsical')
+        return { vars = { card.ability.extra.mult, numerator, denominator,  } }
     end,
     calculate = function(self, card, context)
             if context.cardarea == G.play and context.destroy_card and context.destroy_card == card and 

@@ -47,42 +47,52 @@ end,
 
 SMODS.Joker{
     key = "pencil",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
-        x = 0,
+        x = 2,
         y = 0},
     config = {
-        extra = {
-            chips = -100
-        },
-        --denotes card abilities
+        extra = {odds = 5}
+        
     },
     
-    rarity = "zwp_whimsical",
+    rarity = 2,
     cost = 5,
     
-    loc_vars = function(self,info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.chips
-            }
-        }
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_zwp_whimsical
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_pencil')
+        return { vars = { numerator, denominator } }
+        
     end,
+    
     calculate = function(self,card, context)
-        if context.joker_main then
-            return {
-                chips = card.ability.extra.chips
+        local counter = 0
+        if context.before then
+            for _, pcard in ipairs(context.scoring_hand) do
+                if not next(SMODS.get_enhancements(pcard)) and SMODS.pseudorandom_probability(card, 'zwp_pencil', 1, card.ability.extra.odds) then
+                    counter = counter + 1
+                    pcard:set_ability("m_zwp_whimsical", nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            pcard:juice_up()
+                            
+                            return true
+                        end
+                    }))
+                    
+                end
+            end
+            
+        end
+        if counter > 0 then
+            return{
+                message = "Whimsified"
             }
         end
-    end,
-    in_pool = function(self, args)
-        for _, playing_card in ipairs(G.playing_cards or {}) do
-            if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
-                return true
-            end
-        end
-        return false
-    end,
+        
+    end
+    
 }
 
 
@@ -114,6 +124,7 @@ SMODS.Joker{
         }
     },
     loc_vars = function(self,info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_zwp_whimsical
         return {
             vars = {
                 card.ability.extra.xmult
@@ -122,6 +133,15 @@ SMODS.Joker{
     end,
     rarity = 4,
     cost = 10,
+    in_pool = function(self, args)
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        return true
+                    end
+                end
+                return false
+                end,
+    
     set_badges = function(self, card, badges)
  	badges[#badges + 1] = create_badge('Whimsical Legend', HEX('B500B5'), G.C.WHITE, 1.2 )
     end,
@@ -143,3 +163,12 @@ SMODS.Joker{
     end,
     
 }
+--[[
+for i, v in ipairs(G.jokers.cards) do
+    if v:is_rarity("zwp_whimsical") then
+        return true
+    end
+end
+
+this checks owned jokers for the whimsical joker
+]]

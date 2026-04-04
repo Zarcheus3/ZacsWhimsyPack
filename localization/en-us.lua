@@ -5,7 +5,10 @@ return {
             j_zwp_pencil = {
                 name = "Big Pencil",
                 text = {
-                    "{C:chips}#1#{} chips"
+                    "{C:green}#1# in #2#{} chance to turn",
+                    "each scored card without",
+                    "an enhancement",
+                    "into a {C:attention}Whimsical Card{}"
                     --calls to the first entry in vars table in the jokers
                 }
             },
@@ -14,7 +17,7 @@ return {
                 text = {
                     "Retrigger all",
                     "played {C:attention}Whimsical Cards{}",
-                    "",
+                    "{s:0.3} {}",
                     "Played {C:attention}Whimsical Cards{} give",
                     "{X:mult,C:white}X#1# {} Mult when scored" 
                 }
@@ -26,14 +29,13 @@ return {
             m_zwp_whimsical = {
                 name = "Whimsical Card",
                 text = {{
-                    "{C:green}#2# in #3#{} chance to",
-                    "evolve up when played,",
-                    "cards gain editions",
-                    "when they evolve"
+                    "When played, {C:green}#2# in #3#{}",
+                    "chance to remove",
+                    "enhancement and evolve",
+                    "into a random edition",
+                    "{s:0.7,C:inactive}Attracts {X:zwp_whimsical,C:white,s:0.7}Whimsical{s:0.7,C:inactive} Jokers{}"
                 },
-                {
-                    "Attracts Whimsical Jokers"
-                }}
+                }
 
             }
         },

@@ -21,6 +21,12 @@ return {
                     "Played {C:attention}Whimsical Cards{} give",
                     "{X:mult,C:white}X#1# {} Mult when scored" 
                 }
+            },
+            j_zwp_evilman = {
+                name = "evil"
+            },
+            j_zwp_whimsyman = {
+                name = "whimsy"
             }
 
         },

@@ -134,14 +134,27 @@ SMODS.Joker{
     rarity = 4,
     cost = 10,
     in_pool = function(self, args)
-                for _, playing_card in ipairs(G.playing_cards or {}) do
-                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
-                        return true
+                local no_evil = true
+                for i, v in ipairs(G.jokers.cards) do
+                    if v:is_rarity("zwp_evil") then
+                        no_evil = false
+                        break
                     end
                 end
-                return false
-                end,
-    
+                local has_whimsy = false
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        has_whimsy = true
+                        break
+                    end
+                end
+                if has_whimsy and no_evil then
+                    return true
+                else
+                    return false
+                end    
+            end,
+                
     set_badges = function(self, card, badges)
  	badges[#badges + 1] = create_badge('Whimsical Legend', HEX('B500B5'), G.C.WHITE, 1.2 )
     end,
@@ -166,9 +179,55 @@ SMODS.Joker{
 --[[
 for i, v in ipairs(G.jokers.cards) do
     if v:is_rarity("zwp_whimsical") then
-        return true
+        print("hi")
     end
 end
 
 this checks owned jokers for the whimsical joker
 ]]
+
+SMODS.Joker {
+    key = "evilman",
+    atlas = "placeholders",
+    pos = {
+        x = 0,
+        y = 0
+    },
+    rarity = "zwp_evil",
+    in_pool = function(self)
+        if G.jokers and G.jokers.cards and next(G.jokers.cards) then
+            if next(SMODS.find_card("j_zwp_propeller")) then return false end
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker:is_rarity("zwp_whimsical") then
+                    return false
+                end
+            end
+        end
+        return true
+    end,
+}
+
+SMODS.Joker {
+    key = "whimsyman",
+    atlas = "placeholders",
+    pos = {
+        x = 0,
+        y = 0
+    },
+    rarity = "zwp_whimsical",
+    in_pool = function(self, args)
+                for i, v in ipairs(G.jokers.cards) do
+                    if v:is_rarity("zwp_evil") then
+                        return false
+                    end
+                end
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        return true
+                    end
+                end
+                
+                return false
+                
+            end,
+}

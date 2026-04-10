@@ -98,13 +98,13 @@ SMODS.Joker{
 }
 
 
-
+-- Whimsical Jokers
 
 SMODS.Joker{
     key = "exwhimsy",
     atlas = "placeholders",
     pos = {
-        x = 0,
+        x = 2,
         y = 0
     },
     
@@ -157,7 +157,63 @@ SMODS.Joker{
 
 
 
-
+-- Evil Jokers
+SMODS.Joker{
+    key = "scarynana",
+    atlas = "placeholders",
+    pos = {
+        x = 0,
+        y = 0
+    },
+    config = {
+        extra = {
+            odds = 4,
+            xmult = 1.5
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_scarynana')
+        return { vars = { numerator, denominator, card.ability.extra.xmult} }
+    end,
+    rarity = 1,
+    cost = 4,
+    in_pool = function(self, args)
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        return false
+                    end
+                end
+                return true
+                
+    end,
+    
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Evil', HEX('690404'), G.C.WHITE, 1.2 )
+    end,
+    
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return{
+                xmult = card.ability.extra.xmult
+            }
+        end
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            if SMODS.pseudorandom_probability(card, 'zwp_scarynana', 1, card.ability.extra.odds) then
+                SMODS.destroy_cards(card, nil, nil, true)
+                return {
+                    message = {
+                        "Rotted!",
+                        
+                    }
+                }
+            else
+                return {
+                    message = "Safe"
+                }
+            end
+        end
+    end
+}
 
 
 
@@ -185,7 +241,7 @@ SMODS.Joker{
         }
     end,
     rarity = 4,
-    cost = 10,
+    cost = 20,
     in_pool = function(self, args)
                 for _, playing_card in ipairs(G.playing_cards or {}) do
                     if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
@@ -197,7 +253,7 @@ SMODS.Joker{
             end,
                 
     set_badges = function(self, card, badges)
- 	badges[#badges + 1] = create_badge('Whimsical Legend', HEX('B500B5'), G.C.WHITE, 1.2 )
+ 	    badges[#badges + 1] = create_badge('Whimsical Legend', HEX('B500B5'), G.C.WHITE, 1.2 )
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and

@@ -17,21 +17,31 @@ return {
                 text = {
                     "Retrigger all",
                     "played {C:attention}Whimsical Cards{}",
-                    "{s:0.3} {}",
+                    
                     "Played {C:attention}Whimsical Cards{} give",
                     "{X:mult,C:white}X#1# {} Mult when scored" 
                 }
             },
-           j_zwp_exwhimsy ={
-            name = "Compounding Whimsy",
-            text = {
-                "Gives {X:dark_edition,C:white}^#1#{} for",
-                "each {C:attention}Whimsical Card{}",
-                "in your deck",
-                "{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)"
+            j_zwp_exwhimsy ={
+                name = "Compounding Whimsy",
+                text = {
+                    "Gives {X:dark_edition,C:white}^#1#{} for",
+                    "each {C:attention}Whimsical Card{}",
+                    "in your deck",
+                    "{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)"
+                },
+            },
+            j_zwp_scarynana = {
+                name = "Scary Banana",
+                text = {
+                    "{X:mult,C:white}X#3# {} Mult",
+                    "{C:green}#1# in #2#{} chance this",
+                    "card is destroyed",
+                    "when round ends"
+                }
             }
-           }
         },
+        
         Enhanced = {
             --m is univeral enhancement indicator
             m_zwp_whimsical = {
@@ -59,5 +69,4 @@ return {
             }
         }
     }
-
 }

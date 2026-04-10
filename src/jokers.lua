@@ -160,10 +160,10 @@ SMODS.Joker{
 -- Evil Jokers
 SMODS.Joker{
     key = "scarynana",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
         x = 0,
-        y = 0
+        y = 1
     },
     config = {
         extra = {

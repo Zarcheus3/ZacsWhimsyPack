@@ -167,11 +167,12 @@ SMODS.Joker{
     },
     config = {
         extra = {
-            odds = 4,
+            odds = 8,
             xmult = 1.5
         }
     },
     loc_vars = function(self, info_queue, card)
+        
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_scarynana')
         return { vars = { numerator, denominator, card.ability.extra.xmult} }
     end,
@@ -200,6 +201,7 @@ SMODS.Joker{
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'zwp_scarynana', 1, card.ability.extra.odds) then
                 SMODS.destroy_cards(card, nil, nil, true)
+                SMODS.add_card{key = "j_zwp_rot"}
                 return {
                     message = {
                         "Rotted!",
@@ -215,7 +217,55 @@ SMODS.Joker{
     end
 }
 
+SMODS.Joker{
+    key = "rot",
+    atlas = "woker",
+    pos = {
+        x = 1,
+        y = 1
+    },
+    config = {
+        extra = {
+            odds = 6,
+            xmult = 0.1
+        }
+    },
+    in_pool = function(self, args)
+        return false
+    end,
+    set_card_type_badge = function(self, card, badges)
+        badges[#badges + 1] = create_badge('Evil', HEX('690404'), G.C.WHITE, 1.2 )
+    end,
+    rarity = 1,
+    cost = 0,
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_rot')
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_zwp_whimsical
+        local whimsy_tally = 0
+        if G.playing_cards then
+            for _, playing_card in ipairs(G.playing_cards) do
+                if not SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then whimsy_tally = whimsy_tally + 1 end
+            end
+        end
+        return { vars = { numerator, denominator, card.ability.extra.xmult, 1 + card.ability.extra.xmult * whimsy_tally } }
+    end,
+    calculate = function(self, card, context)
+        if context.destroy_card and context.cardarea == G.play and SMODS.pseudorandom_probability(card, 'zwp_rot', 1, card.ability.extra.odds) then
+            return {remove = true}
+        end
+        
+        if context.joker_main then
+            local whimsy_tally = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if not SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then whimsy_tally = whimsy_tally + 1 end
+            end
+            return {
+                x_mult = 1 + card.ability.extra.xmult * whimsy_tally,
+            }
+        end
+    end,
 
+}
 
 
 

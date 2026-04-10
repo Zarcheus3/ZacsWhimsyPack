@@ -25,7 +25,7 @@ return {
             j_zwp_exwhimsy ={
                 name = "Compounding Whimsy",
                 text = {
-                    "Gives {X:dark_edition,C:white}^#1#{} for",
+                    "Gives {X:dark_edition,C:white}^#1#{} Mult for",
                     "each {C:attention}Whimsical Card{}",
                     "in your deck",
                     "{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)"
@@ -36,8 +36,19 @@ return {
                 text = {
                     "{X:mult,C:white}X#3# {} Mult",
                     "{C:green}#1# in #2#{} chance this",
-                    "card is destroyed",
-                    "when round ends"
+                    "card {C:attention}rots{} when",
+                    "round ends"
+                }
+            },
+            j_zwp_rot = {
+                name = "Rot",
+                text = {
+                    "Gives {X:mult,C:white}X#3#{} Mult for",
+                    "each card in your deck",
+                    "that isn't {C:attention}Whimsical{}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#4# {C:inactive} Mult)",
+                    "{C:green}#1# in #2#{} chance to",
+                    "destroy played cards"
                 }
             }
         },

@@ -100,7 +100,58 @@ SMODS.Joker{
 
 
 
+SMODS.Joker{
+    key = "exwhimsy",
+    atlas = "placeholders",
+    pos = {
+        x = 0,
+        y = 0
+    },
+    
+    config = {
+        extra = {
+            emult = 0.02
+        }
+    },
 
+    rarity = 3,
+    cost = 10,
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Whimsical', HEX('FF1AFF'), G.C.WHITE, 1.2 )
+    end,
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_zwp_whimsical
+        local whimsy_tally = 0
+        if G.playing_cards then
+            for _, playing_card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then whimsy_tally = whimsy_tally + 1 end
+            end
+        end
+        return { vars = { card.ability.extra.emult, 1 + card.ability.extra.emult * whimsy_tally } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local whimsy_tally = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then whimsy_tally = whimsy_tally + 1 end
+            end
+            return {
+                e_mult = 1 + card.ability.extra.emult * whimsy_tally,
+            }
+        end
+    end,
+    in_pool = function(self, args)
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        return true
+                    end
+                end
+                return false
+                
+    end,
+                
+}
 
 
 

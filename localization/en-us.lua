@@ -22,13 +22,15 @@ return {
                     "{X:mult,C:white}X#1# {} Mult when scored" 
                 }
             },
-            j_zwp_evilman = {
-                name = "evil"
-            },
-            j_zwp_whimsyman = {
-                name = "whimsy"
+           j_zwp_exwhimsy ={
+            name = "Compounding Whimsy",
+            text = {
+                "Gives {X:dark_edition,C:white}^#1#{} for",
+                "each {C:attention}Whimsical Card{}",
+                "in your deck",
+                "{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)"
             }
-
+           }
         },
         Enhanced = {
             --m is univeral enhancement indicator
@@ -39,7 +41,8 @@ return {
                     "chance to remove",
                     "enhancement and evolve",
                     "into a random edition",
-                    "{s:0.7,C:inactive}Attracts {X:zwp_whimsical,C:white,s:0.7}Whimsical{s:0.7,C:inactive} Jokers{}"
+                    "{s:0.7,C:inactive}Attracts {X:zwp_whimsical,C:white,s:0.7}Whimsical{s:0.7,C:inactive} Jokers{}",
+                    "{s:0.7,C:inactive}Deters {X:zwp_evil,C:white,s:0.7}Evil{s:0.7,C:inactive} Jokers{}"
                 },
                 }
 

@@ -2,9 +2,10 @@
     "id":"ZacsWhimsyPack",
     "name":"Zac's Whimsy Pack",
     "author":["Zarcheus"],
-    "description":"idk man i just made this cause funny",
+    "description":"A mod with whimsy and evil",
     "prefix":"zwp",
     "main_file":"main.lua",
     "version": "0.1.0",
-    "badge_colour": "D800FF"
+    "badge_colour": "D800FF",
+    "dependencies": ["Steamodded (>=1.0.0~BETA-1503a)","Amulet"]
 }

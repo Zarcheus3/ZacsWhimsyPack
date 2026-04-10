@@ -32,10 +32,11 @@ SMODS.Atlas{
     py = 95
 }
 
-
+loc_colour()
+G.ARGS.LOC_COLOURS.zwp_evil = HEX('690404')
+G.ARGS.LOC_COLOURS.zwp_whimsical = HEX('FF1AFF')
 
 assert(SMODS.load_file("src/enhancements.lua"))()
-assert(SMODS.load_file("src/rarity.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/tarot.lua"))()
 --assert(SMODS.load_file("src/pools.lua"))()

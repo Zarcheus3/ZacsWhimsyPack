@@ -7,7 +7,7 @@ SMODS.Enhancement{
     },
     config = {
         
-        extra = {mult = 0,odds = 10},
+        extra = {mult = 0,odds = 8},
     },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_whimsical')

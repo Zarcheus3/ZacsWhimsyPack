@@ -22,6 +22,13 @@ return {
                     "{X:mult,C:white}X#1# {} Mult when scored" 
                 }
             },
+            j_zwp_garden = {
+                name = "Gnome's Garden",
+                text = {
+                    "Played {C:attention}Whimsical Cards{}",
+                    "give {C:mult}+#1# {}Mult when scored"
+                }
+            },
             j_zwp_exwhimsy ={
                 name = "Compounding Whimsy",
                 text = {

@@ -36,6 +36,10 @@ loc_colour()
 G.ARGS.LOC_COLOURS.zwp_evil = HEX('690404')
 G.ARGS.LOC_COLOURS.zwp_whimsical = HEX('FF1AFF')
 
+SMODS.current_mod.optional_features = {
+    object_weights = true
+}
+
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/tarot.lua"))()

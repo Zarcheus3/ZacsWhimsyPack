@@ -60,7 +60,7 @@ SMODS.Joker{
     
     rarity = 2,
     cost = 5,
-    
+    blueprint_compat = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_zwp_whimsical
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_pencil')
@@ -99,7 +99,56 @@ SMODS.Joker{
 
 
 -- Whimsical Jokers
+SMODS.Joker{
+    key = "garden",
+    atlas = "placeholders",
+    pos = {
+        x = 0,
+        y = 0
+    },
+    rarity = 1,
+    cost = 4,
+    weight = 15,
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Whimsical', HEX('FF1AFF'), G.C.WHITE, 1.2 )
+    end,
+    config = {
+        extra = {
+            mult = 10,
 
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_zwp_whimsical
+        return {vars = {card.ability.extra.mult}}
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and
+            SMODS.has_enhancement(context.other_card, 'm_zwp_whimsical') then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.mult
+            return {
+                mult = card.ability.extra.mult,
+                func = function() -- This is for timing purposes, it runs after the dollar manipulation
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+    end,
+    in_pool = function(self, args)
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        return true
+                    end
+                end
+                return false
+                
+    end,
+}
 SMODS.Joker{
     key = "exwhimsy",
     atlas = "placeholders",
@@ -110,10 +159,10 @@ SMODS.Joker{
     
     config = {
         extra = {
-            emult = 0.02
+            emult = 0.03
         }
     },
-
+    weight = 15,
     rarity = 3,
     cost = 10,
     set_badges = function(self, card, badges)

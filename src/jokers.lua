@@ -101,10 +101,10 @@ SMODS.Joker{
 -- Whimsical Jokers
 SMODS.Joker{
     key = "garden",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
-        x = 0,
-        y = 0
+        x = 2,
+        y = 1
     },
     rarity = 1,
     cost = 4,

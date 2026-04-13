@@ -1,6 +1,8 @@
 # Zac's Whimsy Pack
 A small mod that aims to add (mostly) balanced jokers and items!
 
+## Content
+
 ### Whimsical Cards
 Whimsical Cards are enhanced cards gained through using the new Lollipop tarot card, which have a chance to evolve into a random edition whenever they're played.
 
@@ -12,5 +14,5 @@ Evil Jokers are jokers that only appear when you _don't_ have Whimsical Cards in
 
 ###
 ##
-### Credits
+## Credits
 All art and _most_ code made by me, with large amounts of help from the Balatro discord, and very liberal use of SMODS documentation and the Vanilla Remade FAQ, with a decent bit of code adapted from the Vanilla Remade mod.

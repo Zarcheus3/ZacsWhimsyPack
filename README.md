@@ -12,7 +12,6 @@ Whimsical Jokers are jokers that only appear when you have Whimsical Cards, and 
 ### Evil Jokers
 Evil Jokers are jokers that only appear when you _don't_ have Whimsical Cards in your deck, and can sometimes have some sort of drawback to them.
 
-###
-##
+
 ## Credits
 All art and _most_ code made by me, with large amounts of help from the Balatro discord, and very liberal use of SMODS documentation and the Vanilla Remade FAQ, with a decent bit of code adapted from the Vanilla Remade mod.

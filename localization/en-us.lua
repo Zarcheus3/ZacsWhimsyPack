@@ -29,8 +29,8 @@ return {
                     "give {C:mult}+#1# {}Mult when scored"
                 }
             },
-            j_zwp_exwhimsy ={
-                name = "Compounding Whimsy",
+            j_zwp_vortex ={
+                name = "Vortex",
                 text = {
                     "Gives {X:dark_edition,C:white}^#1#{} Mult for",
                     "each {C:attention}Whimsical Card{}",

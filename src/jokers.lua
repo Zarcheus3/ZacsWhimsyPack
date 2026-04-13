@@ -150,11 +150,11 @@ SMODS.Joker{
     end,
 }
 SMODS.Joker{
-    key = "exwhimsy",
-    atlas = "placeholders",
+    key = "vortex",
+    atlas = "woker",
     pos = {
-        x = 2,
-        y = 0
+        x = 0,
+        y = 2
     },
     
     config = {

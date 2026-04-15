@@ -46,7 +46,81 @@ end,
 
 
 ]]
-
+SMODS.Joker{
+    key = "coin",
+    atlas = "woker",
+    pos = {
+        x = 1,
+        y = 2
+    },
+    config = {
+        extra = {
+            xmult1 = 2,
+            xmult2 = 0.5,
+            odds = 3,
+            dollars = 2
+        }
+    },
+    rarity = 2,
+    price = 3,
+    loc_vars = function(self, info_queue, card)
+        local has_whimsy = false
+        for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        has_whimsy = true
+                    end
+        end
+        info_queue[#info_queue+1] = G.P_CENTERS.m_zwp_whimsical
+        local numerator1, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_coin')
+        local numerator2, denominator = SMODS.get_probability_vars(card, 2, card.ability.extra.odds, 'zwp_coin')
+        return { key = has_whimsy and "j_zwp_coin_alt" or nil, vars = { numerator1,numerator2, denominator, card.ability.extra.xmult1, card.ability.extra.xmult2, card.ability.extra.dollars} }
+        
+    end,
+    calculate = function(self,card, context)
+        if context.joker_main then
+            local has_whimsy = false
+            for _, playing_card in ipairs(G.playing_cards or {}) do
+                        if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                            has_whimsy = true
+                        end
+            end
+            if has_whimsy == false then
+                if SMODS.pseudorandom_probability(card, 'zwp_coin', 2, card.ability.extra.odds) then
+                    return {
+                        x_mult = card.ability.extra.xmult1
+                    }
+                else
+                    return{
+                        x_mult = card.ability.extra.xmult2
+                    }
+                end
+            end
+            if has_whimsy == true then
+                if SMODS.pseudorandom_probability(card, 'zwp_coin', 1, card.ability.extra.odds) then
+                    return {
+                        x_mult = card.ability.extra.xmult1
+                    }
+                else
+                    return{
+                        x_mult = card.ability.extra.xmult2
+                    }
+                end
+            end
+        end
+    end,
+    calc_dollar_bonus = function(self, card)
+        local has_whimsy = false
+        for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        has_whimsy = true
+                    end
+        end
+        if has_whimsy then
+            return card.ability.extra.dollars
+        end
+    end
+    
+}
 SMODS.Joker{
     key = "pencil",
     atlas = "woker",
@@ -265,7 +339,6 @@ SMODS.Joker{
         end
     end
 }
-
 SMODS.Joker{
     key = "rot",
     atlas = "woker",
@@ -315,7 +388,26 @@ SMODS.Joker{
     end,
 
 }
-
+SMODS.Joker{
+    key = "monkey",
+    atlas = "placeholders",
+    pos = {
+        x = 1,
+        y = 0
+    },
+    config = {
+        extra = {
+            odds = 3,
+            xmult_gain = 0.25,
+            xmult = 1
+        }
+    },
+    rarity = 2,
+    cost = 6,
+    calculate = function(self, card, context)
+        
+    end
+}
 
 
 -- Legendary Jokers

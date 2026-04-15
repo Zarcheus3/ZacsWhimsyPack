@@ -12,6 +12,28 @@ return {
                     --calls to the first entry in vars table in the jokers
                 }
             },
+            j_zwp_coin = {
+                name = "Gambler's Coin",
+                text = {
+                    "{C:green}#2# in #3#{} chance",
+                    "to give {X:mult,C:white}X#4# {} Mult,",
+                    "otherwise, give {X:mult,C:white}X#5#{} Mult",
+                    "{C:inactive}Changes if you",
+                    "{C:inactive} have {C:attention}Whimsical Cards{}"
+                }
+            },
+            j_zwp_coin_alt = {
+                name = "Lucky Coin",
+                text = {
+                    "{C:green}#1# in #3#{} chance",
+                    "to give {X:mult,C:white}X#4#{} Mult,",
+                    "otherwise, give {X:mult,C:white}X#5#{} Mult",
+                    "Earn {C:money}$#6#{} at",
+                    "end of round",
+                    "{C:inactive}Changes if you", 
+                    "{C:inactive}have no {C:attention}Whimsical Cards{}"
+                }
+            },
             j_zwp_propeller = {
                 name = "Hat of Whimsy",
                 text = {

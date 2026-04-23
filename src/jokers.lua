@@ -46,6 +46,7 @@ end,
 
 
 ]]
+-- coin
 SMODS.Joker{
     key = "coin",
     atlas = "woker",
@@ -121,6 +122,7 @@ SMODS.Joker{
     end
     
 }
+-- pencil
 SMODS.Joker{
     key = "pencil",
     atlas = "woker",
@@ -173,6 +175,8 @@ SMODS.Joker{
 
 
 -- Whimsical Jokers
+
+-- gnome
 SMODS.Joker{
     key = "garden",
     atlas = "woker",
@@ -182,7 +186,7 @@ SMODS.Joker{
     },
     rarity = 1,
     cost = 4,
-    weight = 15,
+    weight = 20,
     set_badges = function(self, card, badges)
  	    badges[#badges + 1] = create_badge('Whimsical', HEX('FF1AFF'), G.C.WHITE, 1.2 )
     end,
@@ -223,6 +227,8 @@ SMODS.Joker{
                 
     end,
 }
+
+-- vortex
 SMODS.Joker{
     key = "vortex",
     atlas = "woker",
@@ -236,7 +242,7 @@ SMODS.Joker{
             emult = 0.03
         }
     },
-    weight = 15,
+    weight = 20,
     rarity = 3,
     cost = 10,
     set_badges = function(self, card, badges)
@@ -281,6 +287,8 @@ SMODS.Joker{
 
 
 -- Evil Jokers
+
+-- banana and rot
 SMODS.Joker{
     key = "scarynana",
     atlas = "woker",
@@ -294,6 +302,7 @@ SMODS.Joker{
             xmult = 1.5
         }
     },
+    weight = 15,
     loc_vars = function(self, info_queue, card)
         
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_scarynana')
@@ -388,12 +397,14 @@ SMODS.Joker{
     end,
 
 }
+
+-- monkey
 SMODS.Joker{
     key = "monkey",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
-        x = 1,
-        y = 0
+        x = 2,
+        y = 2
     },
     config = {
         extra = {
@@ -402,10 +413,80 @@ SMODS.Joker{
             xmult = 1
         }
     },
+    weight = 15,
+    in_pool = function(self, args)
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        return false
+                    end
+                end
+                return true
+                
+    end,
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'zwp_monkey')
+        return { vars = { numerator, denominator, card.ability.extra.xmult, card.ability.extra.xmult_gain } }
+        
+    end,
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Evil', HEX('690404'), G.C.WHITE, 1.2 )
+    end,
     rarity = 2,
     cost = 6,
     calculate = function(self, card, context)
-        
+        local counter = 0
+        if context.after then
+            
+            for _, pcard in ipairs(context.scoring_hand) do
+                if pcard:get_id() >= 11 and pcard:get_id() <= 13 and SMODS.pseudorandom_probability(card, 'zwp_monkey', 1, card.ability.extra.odds) then
+                    counter = counter + 1
+                    local newRank = pseudorandom("zwp_funnySeed",2,10)
+                    local rankChange = (pcard:get_id() - newRank) * -1
+                    
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        delay = 0.8,
+
+                        func = function()
+                            pcard:juice_up()
+                            assert(SMODS.modify_rank(pcard, rankChange))
+                            return true
+                        end,
+                        
+
+                    }))
+                    
+                end
+            end
+            if counter > 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                -- See note about SMODS Scaling Manipulation on the wiki
+                                card.ability.extra.xmult = card.ability.extra.xmult +
+                                    card.ability.extra.xmult_gain * counter
+                                return true
+                            end,
+                            
+                        }))
+                        SMODS.calculate_effect(
+                            {
+                                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult +
+                                card.ability.extra.xmult_gain * counter } }
+                            }, card)
+                        return true
+                    end
+                }))
+                return nil, true -- This is for Joker retrigger purposes
+            end
+            
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
     end
 }
 

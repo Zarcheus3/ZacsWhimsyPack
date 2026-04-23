@@ -18,8 +18,8 @@ return {
                     "{C:green}#2# in #3#{} chance",
                     "to give {X:mult,C:white}X#4# {} Mult,",
                     "otherwise, give {X:mult,C:white}X#5#{} Mult",
-                    "{C:inactive}Changes if you",
-                    "{C:inactive} have {C:attention}Whimsical Cards{}"
+                    "({C:inactive}Changes if you",
+                    "{C:inactive} have {C:attention}Whimsical Cards{})"
                 }
             },
             j_zwp_coin_alt = {
@@ -30,8 +30,8 @@ return {
                     "otherwise, give {X:mult,C:white}X#5#{} Mult",
                     "Earn {C:money}$#6#{} at",
                     "end of round",
-                    "{C:inactive}Changes if you", 
-                    "{C:inactive}have no {C:attention}Whimsical Cards{}"
+                    "({C:inactive}Changes if you", 
+                    "{C:inactive}have no {C:attention}Whimsical Cards{})"
                 }
             },
             j_zwp_propeller = {
@@ -78,6 +78,18 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white} X#4# {C:inactive} Mult)",
                     "{C:green}#1# in #2#{} chance to",
                     "destroy played cards"
+                }
+            },
+            j_zwp_monkey = {
+                name = "Monkey",
+                text = {
+                    "After scoring,",
+                    "{C:green}#1# in #2#{} chance to turn",
+                    "each played {C:attention}face{} card into",
+                    "a random numbered",
+                    "rank, and gain {X:mult,C:white}X#4#{} Mult",
+                    "on this joker",
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
                 }
             }
         },

@@ -51,7 +51,15 @@ return {
                     "give {C:mult}+#1# {}Mult when scored"
                 }
             },
-            j_zwp_vortex ={
+            j_zwp_bundle = {
+                name = "Bundle of Whimsy",
+                text = {
+                    "Sell this joker during",
+                    "a blind to create",
+                    "#1# {C:attention}Whimsical Cards{}"
+                }
+            },
+            j_zwp_vortex = {
                 name = "Vortex",
                 text = {
                     "Gives {X:dark_edition,C:white}^#1#{} Mult for",

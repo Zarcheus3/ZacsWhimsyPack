@@ -7,5 +7,5 @@
     "main_file":"main.lua",
     "version": "0.1.0",
     "badge_colour": "D800FF",
-    "dependencies": ["Steamodded (>=1.0.0~BETA-1503a)","Amulet"]
+    "dependencies": ["Steamodded (>=1.0.0~BETA-1620a)","Amulet"]
 }

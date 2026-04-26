@@ -228,6 +228,50 @@ SMODS.Joker{
     end,
 }
 
+-- bundle of whimsy
+SMODS.Joker{
+    key = "bundle",
+    atlas = "woker",
+    pos = {
+        x = 3,
+        y = 0
+    },
+    config = {
+        extra = {
+            card_count = 4
+        }
+    },
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Whimsical', HEX('FF1AFF'), G.C.WHITE, 1.2 )
+    end,
+    cost = 2,
+    rarity = 1,
+    weight = 25,
+    eternal_compat = false,
+    blueprint_compat = false,
+    loc_vars = function(self,info_queue,card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_zwp_whimsical
+        return {vars = {card.ability.extra.card_count}}
+    end,
+    calculate = function(self, card, context)
+        
+        if context.selling_self and G.STATE == G.STATES.SELECTING_HAND then
+            for i = 1, card.ability.extra.card_count do
+                SMODS.add_card{set = 'Playing Card', enhancement = 'm_zwp_whimsical' }
+            end
+        end
+    end,
+    in_pool = function(self, args)
+                for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        return true
+                    end
+                end
+                return false
+                
+    end,
+}
+
 -- vortex
 SMODS.Joker{
     key = "vortex",
@@ -310,6 +354,7 @@ SMODS.Joker{
     end,
     rarity = 1,
     cost = 4,
+    eternal_compat = false,
     in_pool = function(self, args)
                 for _, playing_card in ipairs(G.playing_cards or {}) do
                     if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
@@ -332,8 +377,7 @@ SMODS.Joker{
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'zwp_scarynana', 1, card.ability.extra.odds) then
-                SMODS.destroy_cards(card, nil, nil, true)
-                SMODS.add_card{key = "j_zwp_rot"}
+                card:set_ability("j_zwp_rot")
                 return {
                     message = {
                         "Rotted!",
@@ -435,7 +479,7 @@ SMODS.Joker{
     cost = 6,
     calculate = function(self, card, context)
         local counter = 0
-        if context.after then
+        if context.after and not context.blueprint then
             
             for _, pcard in ipairs(context.scoring_hand) do
                 if pcard:get_id() >= 11 and pcard:get_id() <= 13 and SMODS.pseudorandom_probability(card, 'zwp_monkey', 1, card.ability.extra.odds) then
@@ -490,6 +534,97 @@ SMODS.Joker{
     end
 }
 
+-- jimbos jar and the debuff
+SMODS.Joker{
+    key = "jimjar",
+    atlas = "placeholders",
+    pos = {
+        x = 2,
+        y = 0
+    },
+    rarity = 3,
+    cost = 20,
+    eternal_compat = false,
+    calculate = function(self,card, context)
+        local is_in_shop = G.STATE == G.STATES.SHOP
+        if context.selling_self and not is_in_shop then
+            SMODS.add_card({key = "j_zwp_wompwomp"})
+            SMODS.add_card({ set = 'Joker', rarity = "Legendary" })
+            
+        end
+    end
+}
+SMODS.Joker{
+    key = "curse",
+    atlas = "placeholders",
+    pos = {
+        x = 0,
+        y = 0
+    },
+    config = {
+        extra = {
+
+        },
+    },
+    set_card_type_badge = function(self, card, badges)
+        badges[#badges + 1] = create_badge('Evil', HEX('690404'), G.C.WHITE, 1.2 )
+    end,
+    set_ability = function(self, card, initial, delay_sprites)
+        if card.config.center.discovered and initial then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:set_edition("e_negative")
+                    card:add_sticker("eternal", true)
+                    return true
+                end
+            }))
+        end
+    end,
+    calculate = function(self,card, context)
+        if context.blind_defeated then
+            for _, joker in ipairs(G.jokers.cards) do
+                joker.ability.zwp_curse_chosen = nil
+                SMODS.debuff_card(joker,false,"zwp_curse")
+            end
+        end
+        
+        if context.after or context.setting_blind then
+            -- this code is pretty much directly stolen from vanilla remade, my bad
+            if G.jokers.cards[2] then
+                local prev_chosen_set = {}
+                local fallback_jokers = {}
+                local jokers = {}
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i].ability.zwp_curse_chosen then
+                        prev_chosen_set[G.jokers.cards[i]] = true
+                        G.jokers.cards[i].ability.zwp_curse_chosen = nil
+                        if G.jokers.cards[i].debuff then SMODS.debuff_card(G.jokers.cards[i],false,"zwp_curse") end
+                    end
+                end
+                for i = 1, #G.jokers.cards do
+                    if not G.jokers.cards[i].debuff then
+                        if not prev_chosen_set[G.jokers.cards[i]] then
+                            jokers[#jokers + 1] = G.jokers.cards[i]
+                        end
+                        table.insert(fallback_jokers, G.jokers.cards[i])
+                    end
+                end
+                if #jokers == 0 then jokers = fallback_jokers end
+                local jcard = pseudorandom_element(jokers, 'zwp_random')
+                while jcard.config.center.key == "j_zwp_curse" do
+                    jcard = pseudorandom_element(jokers, 'zwp_random')
+                end
+                if jcard then
+                    jcard.ability.zwp_curse_chosen = true
+                    SMODS.debuff_card(jcard,true,"zwp_curse")
+                    jcard:juice_up()
+                    
+                end
+            end
+        end
+    end
+
+}
 
 -- Legendary Jokers
 SMODS.Joker{
@@ -545,12 +680,4 @@ SMODS.Joker{
     end,
     
 }
---[[
-for i, v in ipairs(G.jokers.cards) do
-    if v:is_rarity("zwp_whimsical") then
-        print("hi")
-    end
-end
 
-this checks owned jokers for the whimsical joker
-]]

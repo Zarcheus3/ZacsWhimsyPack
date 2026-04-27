@@ -99,6 +99,21 @@ return {
                     "on this joker",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
                 }
+            },
+            j_zwp_curse = {
+                name = "Curse",
+                text = {
+                    "Disables one random",
+                    "joker every hand"
+                }
+            },
+            j_zwp_jimjar = {
+                name = "Jimbo's Jar",
+                text = {
+                    "When sold, creates",
+                    "a {C:legendary,E:1}Legendary{} joker",
+                    "and a {C:mult,E:1}Curse{}"
+                }
             }
         },
         

@@ -534,7 +534,7 @@ SMODS.Joker{
     end
 }
 
--- jimbos jar and the debuff
+-- jimbos jar and the curse
 SMODS.Joker{
     key = "jimjar",
     atlas = "placeholders",
@@ -545,10 +545,13 @@ SMODS.Joker{
     rarity = 3,
     cost = 20,
     eternal_compat = false,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.j_zwp_curse
+    end,
     calculate = function(self,card, context)
         local is_in_shop = G.STATE == G.STATES.SHOP
         if context.selling_self and not is_in_shop then
-            SMODS.add_card({key = "j_zwp_wompwomp"})
+            SMODS.add_card({key = "j_zwp_curse"})
             SMODS.add_card({ set = 'Joker', rarity = "Legendary" })
             
         end
@@ -556,16 +559,21 @@ SMODS.Joker{
 }
 SMODS.Joker{
     key = "curse",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
-        x = 0,
-        y = 0
+        x = 3,
+        y = 2
+    },
+    soul_pos = {
+        x = 3,
+        y = 1
     },
     config = {
         extra = {
 
         },
     },
+    blueprint_compat = false,
     set_card_type_badge = function(self, card, badges)
         badges[#badges + 1] = create_badge('Evil', HEX('690404'), G.C.WHITE, 1.2 )
     end,
@@ -581,44 +589,60 @@ SMODS.Joker{
         end
     end,
     calculate = function(self,card, context)
-        if context.blind_defeated then
-            for _, joker in ipairs(G.jokers.cards) do
-                joker.ability.zwp_curse_chosen = nil
-                SMODS.debuff_card(joker,false,"zwp_curse")
-            end
-        end
-        
         if context.after or context.setting_blind then
             -- this code is pretty much directly stolen from vanilla remade, my bad
-            if G.jokers.cards[2] then
-                local prev_chosen_set = {}
-                local fallback_jokers = {}
-                local jokers = {}
-                for i = 1, #G.jokers.cards do
-                    if G.jokers.cards[i].ability.zwp_curse_chosen then
-                        prev_chosen_set[G.jokers.cards[i]] = true
-                        G.jokers.cards[i].ability.zwp_curse_chosen = nil
-                        if G.jokers.cards[i].debuff then SMODS.debuff_card(G.jokers.cards[i],false,"zwp_curse") end
-                    end
-                end
-                for i = 1, #G.jokers.cards do
-                    if not G.jokers.cards[i].debuff then
-                        if not prev_chosen_set[G.jokers.cards[i]] then
-                            jokers[#jokers + 1] = G.jokers.cards[i]
+            
+            if G.jokers.cards[2] and G.GAME.chips + SMODS.calculate_round_score() < G.GAME.blind.chips then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.8,
+
+                    func = function()
+                        local prev_chosen_set = {}
+                        local fallback_jokers = {}
+                        local jokers = {}
+                        for i = 1, #G.jokers.cards do
+                            if G.jokers.cards[i].ability.zwp_curse_chosen then
+                                prev_chosen_set[G.jokers.cards[i]] = true
+                                G.jokers.cards[i].ability.zwp_curse_chosen = nil
+                                if G.jokers.cards[i].debuff then SMODS.debuff_card(G.jokers.cards[i],false,"zwp_curse") end
+                            end
                         end
-                        table.insert(fallback_jokers, G.jokers.cards[i])
+                        for i = 1, #G.jokers.cards do
+                            if not G.jokers.cards[i].debuff then
+                                if not prev_chosen_set[G.jokers.cards[i]] then
+                                    jokers[#jokers + 1] = G.jokers.cards[i]
+                                end
+                                table.insert(fallback_jokers, G.jokers.cards[i])
+                            end
+                        end
+                        if #jokers == 0 then jokers = fallback_jokers end
+                        local jcard = pseudorandom_element(jokers, 'zwp_random')
+                        while jcard.config.center.key == "j_zwp_curse" do
+                            jcard = pseudorandom_element(jokers, 'zwp_random')
+                        end
+                        if jcard then
+                            jcard.ability.zwp_curse_chosen = true
+                            SMODS.debuff_card(jcard,true,"zwp_curse")
+                            jcard:juice_up()
+                            
+                        end
+                        return true
                     end
-                end
-                if #jokers == 0 then jokers = fallback_jokers end
-                local jcard = pseudorandom_element(jokers, 'zwp_random')
-                while jcard.config.center.key == "j_zwp_curse" do
-                    jcard = pseudorandom_element(jokers, 'zwp_random')
-                end
-                if jcard then
-                    jcard.ability.zwp_curse_chosen = true
-                    SMODS.debuff_card(jcard,true,"zwp_curse")
-                    jcard:juice_up()
-                    
+                }))
+                
+            else
+                for _, joker in ipairs(G.jokers.cards) do
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        func = function()
+                            joker.ability.zwp_curse_chosen = nil
+                            if joker.debuff then joker:juice_up() end
+                            SMODS.debuff_card(joker,false,"zwp_curse")
+                            
+                            return true
+                        end
+                    }))
                 end
             end
         end

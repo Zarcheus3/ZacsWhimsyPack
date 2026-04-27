@@ -5,7 +5,7 @@
     "description":"A mod with whimsy and evil",
     "prefix":"zwp",
     "main_file":"main.lua",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "badge_colour": "D800FF",
     "dependencies": ["Steamodded (>=1.0.0~BETA-1620a)","Amulet"]
 }

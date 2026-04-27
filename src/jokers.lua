@@ -537,20 +537,34 @@ SMODS.Joker{
 -- jimbos jar and the curse
 SMODS.Joker{
     key = "jimjar",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
-        x = 2,
-        y = 0
+        x = 3,
+        y = 2
     },
     rarity = 3,
     cost = 20,
     eternal_compat = false,
+    weight = 20,
+    in_pool = function(self, args)
+        for _, playing_card in ipairs(G.playing_cards or {}) do
+            if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                return false
+            end
+        end
+
+        return not args or args.source ~= "jud"
+                
+    end,
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Evil', HEX('690404'), G.C.WHITE, 1.2 )
+    end, 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.j_zwp_curse
     end,
     calculate = function(self,card, context)
         local is_in_shop = G.STATE == G.STATES.SHOP
-        if context.selling_self and not is_in_shop then
+        if context.selling_self then
             SMODS.add_card({key = "j_zwp_curse"})
             SMODS.add_card({ set = 'Joker', rarity = "Legendary" })
             
@@ -561,8 +575,8 @@ SMODS.Joker{
     key = "curse",
     atlas = "woker",
     pos = {
-        x = 3,
-        y = 2
+        x = 4,
+        y = 1
     },
     soul_pos = {
         x = 3,
@@ -576,6 +590,9 @@ SMODS.Joker{
     blueprint_compat = false,
     set_card_type_badge = function(self, card, badges)
         badges[#badges + 1] = create_badge('Evil', HEX('690404'), G.C.WHITE, 1.2 )
+    end,
+    in_pool = function(self,args)
+        return false
     end,
     set_ability = function(self, card, initial, delay_sprites)
         if card.config.center.discovered and initial then
@@ -649,6 +666,9 @@ SMODS.Joker{
     end
 
 }
+
+
+
 
 -- Legendary Jokers
 SMODS.Joker{

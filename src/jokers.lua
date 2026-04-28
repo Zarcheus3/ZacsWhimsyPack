@@ -226,6 +226,54 @@ SMODS.Joker{
     end,
 }
 
+-- big red ball
+SMODS.Joker{
+    key = "baller",
+    atlas = "placeholders",
+    pos = {
+        x = 0,
+        y = 0
+    },
+    config = {
+        extra = {
+            mult_gain = 1,
+            mult = 0
+        }
+    },
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Whimsical', HEX('FF1AFF'), G.C.WHITE, 1.2 )
+    end,
+    loc_vars = function(self,info_queue,card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_zwp_whimsical
+        return {vars = {card.ability.extra.mult,card.ability.extra.mult_gain}}
+    end,
+    rarity = 1,
+    cost = 4,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, 'm_zwp_whimsical') then
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain    
+            return {
+                message = localize { type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult} },
+                message_card = card,
+                
+            }
+        end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end,
+    in_pool = function(self, args)
+        for _, playing_card in ipairs(G.playing_cards or {}) do
+            if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                return true
+            end
+        end
+        return false   
+    end,
+}
+
 -- vortex
 SMODS.Joker{
     key = "vortex",

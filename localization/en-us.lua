@@ -48,7 +48,7 @@ return {
                 name = "Gnome's Garden",
                 text = {
                     "Played {C:attention}Whimsical Cards{}",
-                    "give {C:mult}+#1# {}Mult when scored"
+                    "give {C:mult}+#1#{} Mult when scored"
                 }
             },
             j_zwp_bundle = {
@@ -59,13 +59,22 @@ return {
                     "#1# {C:attention}Whimsical Cards{}"
                 }
             },
+            j_zwp_baller = {
+                name = "Red Ball",
+                text = {
+                    "Gains {C:mult}+#2#{} Mult every",
+                    "time a {C:attention}Whimsical Card{}",
+                    "is scored",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} mult)"
+                }
+            },
             j_zwp_vortex = {
                 name = "Vortex",
                 text = {
                     "Gives {X:dark_edition,C:white}^#1#{} Mult for",
                     "each {C:attention}Whimsical Card{}",
                     "in your deck",
-                    "{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)"
+                    "{C:inactive}(Currently {X:dark_edition,C:white}^#2#{C:inactive} Mult)"
                 },
             },
             j_zwp_scarynana = {

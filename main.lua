@@ -43,4 +43,3 @@ SMODS.current_mod.optional_features = {
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/tarot.lua"))()
---assert(SMODS.load_file("src/pools.lua"))()

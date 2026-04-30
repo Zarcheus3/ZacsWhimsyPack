@@ -68,6 +68,16 @@ return {
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} mult)"
                 }
             },
+            j_zwp_pig = {
+                name = "Flying Pig",
+                text = {
+                    "Earn {C:money}$#1#{} at end",
+                    "of round for every",
+                    "{C:attention}#3# Whimsical Cards",
+                    "in your deck",
+                    "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
+                }
+            },
             j_zwp_vortex = {
                 name = "Vortex",
                 text = {

@@ -229,9 +229,9 @@ SMODS.Joker{
 -- big red ball
 SMODS.Joker{
     key = "baller",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
-        x = 0,
+        x = 4,
         y = 0
     },
     config = {
@@ -274,6 +274,57 @@ SMODS.Joker{
     end,
 }
 
+-- flying pig
+SMODS.Joker{
+    key = "pig",
+    atlas = "placeholders",
+    pos = {
+        x = 1,
+        y = 0
+    },
+    config = {
+        extra = {
+            dollars = 1,
+            cards_needed = 3
+        }
+    },
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Whimsical', HEX('FF1AFF'), G.C.WHITE, 1.2 )
+    end,
+    in_pool = function(self, args)
+        for _, playing_card in ipairs(G.playing_cards or {}) do
+            if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                return true
+            end
+        end
+        return false   
+    end,
+    loc_vars = function(self,info_queue,card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_zwp_whimsical
+        local whimsy_tally = 0
+        if G.playing_cards then
+            for _, playing_card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then whimsy_tally = whimsy_tally + 1 end
+            end
+        end
+        whimsy_tally = math.floor(whimsy_tally / card.ability.extra.cards_needed)
+        return { vars = { card.ability.extra.dollars, card.ability.extra.dollars * whimsy_tally, card.ability.extra.cards_needed} }
+    end,
+    rarity = 2,
+    
+    calc_dollar_bonus = function(self, card)
+        local whimsy_tally = 0
+        for _, playing_card in ipairs(G.playing_cards or {}) do
+                    if SMODS.has_enhancement(playing_card, 'm_zwp_whimsical') then
+                        whimsy_tally = whimsy_tally + 1
+                    end
+        end
+        whimsy_tally = math.floor(whimsy_tally / card.ability.extra.cards_needed)
+        return card.ability.extra.dollars * whimsy_tally
+    end
+    
+    
+}
 -- vortex
 SMODS.Joker{
     key = "vortex",

@@ -29,3 +29,28 @@ SMODS.Enhancement{
             
     end
 }
+SMODS.Enhancement{
+    key = "evil",
+    atlas = "enhancements",
+    pos = {
+        x = 1,
+        y = 0
+    },
+    config = {
+        extra = {
+            mult = -2,
+            xmult = 1.3
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.mult, card.ability.extra.xmult} }
+    end,
+    calculate = function(self, card, context)
+        if context.main_scoring and context.cardarea == G.play then
+            return {
+                mult = card.ability.extra.mult,
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end
+}

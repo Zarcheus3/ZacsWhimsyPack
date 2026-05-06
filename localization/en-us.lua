@@ -119,6 +119,14 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
                 }
             },
+            j_zwp_scourge = {
+                name = "Scourge",
+                text = {
+                    "Transforms {C:attention}Whimsical Cards{}",
+                    "into {C:attention}Evil Cards{}",
+                    "when played"
+                }
+            },
             j_zwp_curse = {
                 name = "Curse",
                 text = {
@@ -132,6 +140,12 @@ return {
                     "When sold, creates",
                     "a {C:legendary,E:1}Legendary{} joker",
                     "and a {C:mult,E:1}Curse{}"
+                }
+            },
+            j_zwp_child = {
+                name = "Child",
+                text = {
+                    
                 }
             }
         },
@@ -150,6 +164,14 @@ return {
                 },
                 }
 
+            },
+            m_zwp_evil = {
+                name = "Evil Card",
+                text = {
+                    "{C:mult}#1#{} Mult and {X:mult,C:white}X#2#{} Mult",
+                    "{s:0.7,C:inactive}Can only be made by an {s:0.7,C:zwp_evil,E:1}Evil{s:0.7,C:inactive} source",
+                    "{s:0.7,C:inactive}Attracts {s:0.7,X:zwp_pure_evil,C:white,E:1}Pure Evil{} Jokers"
+                }
             }
         },
         Tarot = {

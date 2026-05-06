@@ -587,6 +587,59 @@ SMODS.Joker{
     end
 }
 
+--scourge
+SMODS.Joker{
+    key = "scourge",
+    atlas = "placeholders",
+    pos = {
+        x = 1,
+        y = 0
+    },
+    rarity = 2,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_zwp_whimsical
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_zwp_evil
+    end,
+    weight = 25,
+    calculate = function(self,card, context)
+        local counter = 0
+        if context.before then
+            for _, pcard in ipairs(context.scoring_hand) do
+                if SMODS.has_enhancement(pcard, 'm_zwp_whimsical') then
+                    counter = counter + 1
+                    pcard:set_ability("m_zwp_evil", nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            pcard:juice_up()
+                            
+                            return true
+                        end
+                    }))
+                    
+                end
+            end
+            
+        end
+        if counter > 0 then
+            return{
+                message = "Corrupted"
+            }
+        end
+        
+    end,
+    in_pool = function(self, args)
+        for _, playing_card in ipairs(G.playing_cards or {}) do
+            if SMODS.has_enhancement(playing_card, 'm_zwp_evil') then
+                return false
+            end
+        end     
+    end,
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Evil', HEX('690404'), G.C.WHITE, 1.2 )
+    end, 
+
+}
+
 -- jimbos jar and the curse
 SMODS.Joker{
     key = "jimjar",
@@ -724,6 +777,8 @@ SMODS.Joker{
 
 
 -- Legendary Jokers
+
+-- Hat of Whimsy
 SMODS.Joker{
     key = "propeller",
     
@@ -776,5 +831,23 @@ SMODS.Joker{
         
     end,
     
+}
+
+SMODS.Joker{
+    key = "child",
+    atlas = "woker",
+    pos = {
+        x = 5,
+        y = 0
+    },
+    soul_pos = {
+        x = 6,
+        y = 0
+    },
+    rarity = 4,
+    cost = 20,
+    set_badges = function(self, card, badges)
+ 	    badges[#badges + 1] = create_badge('Pure Evil', HEX('A30000'), G.C.WHITE, 1.2 )
+    end,
 }
 

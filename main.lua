@@ -35,6 +35,7 @@ SMODS.Atlas{
 loc_colour()
 G.ARGS.LOC_COLOURS.zwp_evil = HEX('690404')
 G.ARGS.LOC_COLOURS.zwp_whimsical = HEX('FF1AFF')
+G.ARGS.LOC_COLOURS.zwp_pure_evil = HEX('A30000')
 
 SMODS.current_mod.optional_features = {
     object_weights = true

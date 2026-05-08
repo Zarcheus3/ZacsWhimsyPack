@@ -145,7 +145,10 @@ return {
             j_zwp_child = {
                 name = "Child",
                 text = {
-                    
+                    "Retriggers {C:attention}Evil Cards{}",
+                    "#1# additional times",
+                    "Disables negative effects",
+                    "of {C:attention}Evil Cards"
                 }
             }
         },
@@ -160,6 +163,7 @@ return {
                     "enhancement and evolve",
                     "into a random edition",
                     "{s:0.7,C:inactive}Attracts {X:zwp_whimsical,C:white,s:0.7}Whimsical{s:0.7,C:inactive} Jokers{}",
+                    "{s:0.7,C:inactive}and {X:zwp_whimsical_legend,C:white,s:0.7,E:1}Whimsical{X:zwp_whimsical_legend,C:white,s:0.7,E:1}Legends",
                     "{s:0.7,C:inactive}Deters {X:zwp_evil,C:white,s:0.7}Evil{s:0.7,C:inactive} Jokers{}"
                 },
                 }
@@ -170,7 +174,7 @@ return {
                 text = {
                     "{C:mult}#1#{} Mult and {X:mult,C:white}X#2#{} Mult",
                     "{s:0.7,C:inactive}Can only be made by an {s:0.7,C:zwp_evil,E:1}Evil{s:0.7,C:inactive} source",
-                    "{s:0.7,C:inactive}Attracts {s:0.7,X:zwp_pure_evil,C:white,E:1}Pure Evil{} Jokers"
+                    "{s:0.7,C:inactive}Attracts {s:0.7,X:zwp_pure_evil,C:white,E:1}Pure{}{s:0.7,X:zwp_pure_evil,C:white,E:1}Evil{} Jokers"
                 }
             }
         },

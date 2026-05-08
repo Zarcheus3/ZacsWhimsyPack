@@ -17,7 +17,7 @@ SMODS.Enhancement{
             if context.cardarea == G.play and context.destroy_card and context.destroy_card == card and 
             SMODS.pseudorandom_probability(card, 'zwp_whimsical', 1, card.ability.extra.odds) then
                     card:set_ability('c_base', nil, true)
-                    local random_edition = SMODS.poll_edition { key = "modprefix_seed", guaranteed = true, no_negative = true } 
+                    local random_edition = SMODS.poll_edition { key = "zwp_silly", guaranteed = true, no_negative = true } 
                     card:set_edition(random_edition, nil, nil, true) 
                     return {
                         message = "Evolved",
@@ -47,6 +47,12 @@ SMODS.Enhancement{
     end,
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
+            if next(SMODS.find_card("j_zwp_child")) then
+                return{
+                    xmult = card.ability.extra.xmult
+                }
+            end
+            
             return {
                 mult = card.ability.extra.mult,
                 xmult = card.ability.extra.xmult

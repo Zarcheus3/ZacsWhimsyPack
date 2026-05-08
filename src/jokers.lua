@@ -277,10 +277,10 @@ SMODS.Joker{
 -- flying pig
 SMODS.Joker{
     key = "pig",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
-        x = 1,
-        y = 0
+        x = 4,
+        y = 2
     },
     config = {
         extra = {
@@ -590,12 +590,13 @@ SMODS.Joker{
 --scourge
 SMODS.Joker{
     key = "scourge",
-    atlas = "placeholders",
+    atlas = "woker",
     pos = {
-        x = 1,
-        y = 0
+        x = 5,
+        y = 1
     },
     rarity = 2,
+    cost = 7,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_zwp_whimsical
         info_queue[#info_queue + 1] = G.P_CENTERS.m_zwp_evil
@@ -778,6 +779,7 @@ SMODS.Joker{
 
 -- Legendary Jokers
 
+
 -- Hat of Whimsy
 SMODS.Joker{
     key = "propeller",
@@ -833,6 +835,7 @@ SMODS.Joker{
     
 }
 
+-- Child
 SMODS.Joker{
     key = "child",
     atlas = "woker",
@@ -844,10 +847,31 @@ SMODS.Joker{
         x = 6,
         y = 0
     },
+    config = {
+        extra = {
+            repetitions = 2
+        }
+    },
     rarity = 4,
     cost = 20,
+    loc_vars = function(self,info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_zwp_evil
+        return {
+            vars = {
+                card.ability.extra.repetitions
+            }
+        }
+    end,
     set_badges = function(self, card, badges)
  	    badges[#badges + 1] = create_badge('Pure Evil', HEX('A30000'), G.C.WHITE, 1.2 )
     end,
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and
+            SMODS.has_enhancement(context.other_card, 'm_zwp_evil') then
+                return{
+                    repetitions = card.ability.extra.repetitions
+                }
+         end
+    end
 }
 

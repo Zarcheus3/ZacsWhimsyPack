@@ -1,4 +1,62 @@
 
+-- frog
+SMODS.Joker{
+    key = "frog",
+    atlas = "woker",
+    pos = {
+        x = 5,
+        y = 2
+    },
+    rarity = 1,
+    cost = 3,
+    config = {
+        extra = {
+            odds = 2,
+            mult_gain = 2,
+            mult = 0
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_zwp_fly
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_zwp_frog')
+        return {vars = {numerator,denominator,card.ability.extra.mult,card.ability.extra.mult_gain}}
+    end,
+    calculate = function(self,card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+        if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            if SMODS.pseudorandom_probability(card, 'zwp_frog', 2, card.ability.extra.odds) then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        delay = 0.0,
+                        func = (function()
+                            SMODS.add_card{key = "c_zwp_fly"}
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end)
+                    }))
+            end
+        end
+        if context.round_eval then
+            local flies = 0
+            for _, fly in ipairs(SMODS.find_card("c_zwp_fly")) do
+                flies = flies + 1
+            end
+            card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_gain * flies)    
+            return {
+                message = localize { type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult_gain * flies} },
+                message_card = card,
+                
+            }
+
+        end
+
+    end
+}
 
 -- coin
 SMODS.Joker{
@@ -778,7 +836,6 @@ SMODS.Joker{
 
 
 -- Legendary Jokers
-
 
 -- Hat of Whimsy
 SMODS.Joker{

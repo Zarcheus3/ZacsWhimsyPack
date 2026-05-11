@@ -2,6 +2,16 @@ return {
     descriptions = {
         Joker = {
             --j is universal joker indicator, then id of mod, then joker id
+            j_zwp_frog = {
+                name = "Frog",
+                text = {
+                    "{C:green}#1# in #2#{} chance to spawn",
+                    "a {C:attention}Fly{} when blind selected",
+                    "At end of round, gain {C:mult}+#4#{} Mult",
+                    "for every {C:attention}Fly{} you have",
+                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)"
+                }
+            },
             j_zwp_pencil = {
                 name = "Big Pencil",
                 text = {
@@ -9,7 +19,6 @@ return {
                     "each scored card without",
                     "an enhancement",
                     "into a {C:attention}Whimsical Card{}"
-                    --calls to the first entry in vars table in the jokers
                 }
             },
             j_zwp_coin = {
@@ -18,7 +27,7 @@ return {
                     "{C:green}#2# in #3#{} chance",
                     "to give {X:mult,C:white}X#4# {} Mult,",
                     "otherwise, give {X:mult,C:white}X#5#{} Mult",
-                    "({C:inactive}Changes if you",
+                    "{C:inactive}(Changes if you",
                     "{C:inactive} have {C:attention}Whimsical Cards{})"
                 }
             },
@@ -65,7 +74,7 @@ return {
                     "Gains {C:mult}+#2#{} Mult every",
                     "time a {C:attention}Whimsical Card{}",
                     "is scored",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} mult)"
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 }
             },
             j_zwp_pig = {
@@ -185,6 +194,12 @@ return {
                     "Enhances {C:attention}#1#{}",
                     "selected cards to",
                     "{C:attention}Whimsical Cards{}"
+                }
+            },
+            c_zwp_fly = {
+                name = "Fly",
+                text = {
+                    "{E:1}mmm,{} tasty!"
                 }
             }
         }

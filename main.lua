@@ -20,8 +20,8 @@ SMODS.Atlas{
 }
 
 SMODS.Atlas{
-    key = "tarots",
-    path = "tarotsAtlas.png",
+    key = "consumables",
+    path = "consumables.png",
     px = 71,
     py = 95
 }
@@ -43,4 +43,4 @@ SMODS.current_mod.optional_features = {
 
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
-assert(SMODS.load_file("src/tarot.lua"))()
+assert(SMODS.load_file("src/consumables.lua"))()

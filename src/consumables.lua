@@ -32,6 +32,6 @@ SMODS.Consumable {
     },
     set_card_type_badge = function(self, card, badges)
         badges[#badges+1] = create_badge("Sustenance", G.C.RED, G.C.WHITE, 1.2 )
-    end
-    --no_collection = true
+    end,
+    no_collection = true
 }
